@@ -1,6 +1,8 @@
 # 📱 Pay Order Calculator
 
-A simple and efficient web application that helps users calculate pay order amounts with and without tax.  
+A simple and efficient web application designed for use in Sub-Registrar Offices to calculate Pay Order amounts with and without tax.  
+I work part-time at a Sub-Registrar Office, where manually calculating Pay Orders was time-consuming.  
+To make the process faster and easier, I built this application.  
 Built with **React**, **Tailwind CSS**, and powered as a **Progressive Web App (PWA)** for installation on mobile and desktop devices.
 
 ---
