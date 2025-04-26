@@ -1,10 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
   const [x, setX] = useState("");
   const [result, setResult] = useState(null);
   const [withTax, setWithTax] = useState(null);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    });
+  }, []);
+
+  const handleInstall = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the install prompt");
+        } else {
+          console.log("User dismissed the install prompt");
+        }
+        setDeferredPrompt(null);
+      });
+    }
+  };
 
   const calculate = (value) => {
     const numX = parseInt(value);
@@ -93,6 +115,23 @@ function App() {
         )}
 
         <p className="mt-3 text-xs text-gray-500">Made by SA Al Walid.</p>
+        {/* 👇 This Install Button */}
+        {deferredPrompt && (
+          <button
+            onClick={handleInstall}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#000000",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              marginTop: "20px",
+              cursor: "pointer",
+            }}
+          >
+            Install App
+          </button>
+        )}
       </div>
     </div>
   );
